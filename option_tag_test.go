@@ -11,11 +11,11 @@ type TestOptionTagsOptions struct {
 	Plugins struct {
 		Custom struct {
 			Enabled bool `config:"blah" default:"false" desc:"whether custom plugin is enabled"`
-		} `desc:"custom plugin options"`
+		}
 		Another struct {
 			Enabled bool `default:"false" desc:"whether another plugin is enabled"`
-		} `desc:"another plugin options"`
-	} `desc:"plugins options"`
+		}
+	}
 }
 
 func (o TestOptionTagsOptions) Root() string {

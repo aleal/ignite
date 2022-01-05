@@ -39,7 +39,7 @@ type CustomClientOptions struct {
 }
 
 func (o *CustomClientOptions) Root() string {
-	return "custom"
+	return "ignite.customClient"
 }
 
 func (o *CustomClientOptions) PostLoad() error {

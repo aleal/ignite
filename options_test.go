@@ -13,7 +13,7 @@ type CustomOptions struct {
 	Plugins struct {
 		Custom struct {
 			Enabled bool `default:"true" desc:"custom plugin options"`
-			Count   int  `config:"counterNumber" default:"777"  desc:"custom plugin options"`
+			Count   int  `config:"counterNumber" default:"777" desc:"custom plugin options"`
 		}
 	} `config:"middlewares"`
 }
