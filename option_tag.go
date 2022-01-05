@@ -3,8 +3,13 @@ package ignite
 import (
 	"fmt"
 	"reflect"
+	"strings"
 	"unicode"
 	"unicode/utf8"
+)
+
+const (
+	separator = ","
 )
 
 // represents the values expected at ignite options struct field tag.
@@ -14,9 +19,9 @@ type IgniteOptionTag struct {
 	// If not defined it will be inferred by camelCasing the field name.
 	Config string
 	// default value if none option value is provided.
-	// Defined as `default:"123"`
+	// Defined as `default:"123"`. Multiple values use commas: `default:"value1,value2"`
 	// If not present the default value will be the field type zero.
-	Default string
+	Default any
 	// describes what the option field represents.
 	// Defined as `desc:"example of description"`.
 	// If not present it will be the empty string.
@@ -58,13 +63,21 @@ func getTags(f reflect.StructField, p string) []*IgniteOptionTag {
 	} else {
 		tag := &IgniteOptionTag{
 			Config:      config,
-			Default:     getTagValue(f, "default"),
+			Default:     getDefault(f),
 			Description: getTagValue(f, "desc"),
 			Path:        path,
 		}
 		tags = append(tags, tag)
 	}
 	return tags
+}
+
+func getDefault(f reflect.StructField) any {
+	d := getTagValue(f, "default")
+	if strings.Contains(d, separator) {
+		return strings.Split(d, separator)
+	}
+	return d
 }
 
 func getTagValue(f reflect.StructField, key string) string {
