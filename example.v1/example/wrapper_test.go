@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/aleal/ignite"
-	"github.com/americanas-go/config"
 )
 
 func TestInit(t *testing.T) {
@@ -19,18 +18,18 @@ func TestInit(t *testing.T) {
 			name: "initialize instance",
 			setup: func() *Options {
 				opts := ignite.New[*Options]()
-				opts.Host = config.String(root + host)
-				opts.Port = config.Int(root + port)
-				opts.Plugins.Custom.Enabled = config.Bool(root + pluginCustomEnabled)
-				opts.Plugins.Custom.Count = config.Int(root + pluginCustomCount)
-				opts.Plugins.AnotherCustom.Enabled = config.Bool(root + pluginAnotherCustomEnabled)
-				opts.Plugins.AnotherCustom.Label = config.String(root + pluginAnotherCustomLabel)
+				opts.Host = "localhost"
+				opts.Port = 9999
+				opts.Plugins.Custom.Enabled = true
+				opts.Plugins.Custom.Count = 490
+				opts.Plugins.Another.Enabled = true
+				opts.Plugins.Another.Label = "LabelValue123"
 				return opts
 			},
 			want: func() *Any {
 				return &Any{
-					Host: config.String(root + host),
-					Port: config.Int(root + port),
+					Host: "localhost",
+					Port: 9999,
 				}
 			},
 		},

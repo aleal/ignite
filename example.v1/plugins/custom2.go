@@ -8,7 +8,7 @@ import (
 
 // another custom plugin
 func AnotherCustom(ctx context.Context, w *example.Wrapper) error {
-	opts := w.Options.Plugins.AnotherCustom
+	opts := w.Options.Plugins.Another
 	// checks if plugin is enabled
 	if opts.Enabled {
 		// plugin code goes here

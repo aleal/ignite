@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/aleal/ignite"
-	"github.com/americanas-go/config"
 )
 
 func TestOptions(t *testing.T) {
@@ -16,37 +15,32 @@ func TestOptions(t *testing.T) {
 		want  func() *Options
 	}{
 		{
-			name: "loads options",
-			setup: func() {
-				AddConfig(root)
-				config.Load()
-			},
+			name:  "loads options",
+			setup: func() {},
 			want: func() *Options {
 				opts := ignite.New[*Options]()
-				opts.Host = config.String(root + host)
-				opts.Port = config.Int(root + port)
-				opts.Plugins.Custom.Enabled = config.Bool(root + pluginCustomEnabled)
-				opts.Plugins.Custom.Count = config.Int(root + pluginCustomCount)
-				opts.Plugins.AnotherCustom.Enabled = config.Bool(root + pluginAnotherCustomEnabled)
-				opts.Plugins.AnotherCustom.Label = config.String(root + pluginAnotherCustomLabel)
+				opts.Host = "localhost"
+				opts.Port = 9999
+				opts.Plugins.Custom.Enabled = true
+				opts.Plugins.Custom.Count = 490
+				opts.Plugins.Another.Enabled = true
+				opts.Plugins.Another.Label = "LabelValue123"
 				return opts
 			},
 		},
 		{
 			name: "loads options by overriding host for an env var",
 			setup: func() {
-				AddConfig(root)
 				os.Setenv("EXAMPLE_HOST", "example.com")
-				config.Load()
 			},
 			want: func() *Options {
 				opts := ignite.New[*Options]()
 				opts.Host = "example.com"
-				opts.Port = config.Int(root + port)
-				opts.Plugins.Custom.Enabled = config.Bool(root + pluginCustomEnabled)
-				opts.Plugins.Custom.Count = config.Int(root + pluginCustomCount)
-				opts.Plugins.AnotherCustom.Enabled = config.Bool(root + pluginAnotherCustomEnabled)
-				opts.Plugins.AnotherCustom.Label = config.String(root + pluginAnotherCustomLabel)
+				opts.Port = 9999
+				opts.Plugins.Custom.Enabled = true
+				opts.Plugins.Custom.Count = 490
+				opts.Plugins.Another.Enabled = true
+				opts.Plugins.Another.Label = "LabelValue123"
 				return opts
 			},
 		},

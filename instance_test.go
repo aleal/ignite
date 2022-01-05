@@ -27,32 +27,22 @@ func (tc *CustomClient) Init(ctx context.Context, o *CustomClientOptions) error 
 }
 
 type CustomClientOptions struct {
-	Enabled                   bool
-	Host                      string
-	Port                      int
-	CustomClientPluginOptions *CustomClientPluginOptions
+	Enabled bool
+	Host    string
+	Port    int
+	Plugins struct {
+		Custom struct {
+			Enabled    bool
+			MaxRetries int
+		}
+	}
 }
 
 func (o *CustomClientOptions) Root() string {
 	return "custom"
 }
 
-func (o *CustomClientOptions) PostLoad() (e error) {
-	o.CustomClientPluginOptions, e = Load[*CustomClientPluginOptions]()
-	//
-	return
-}
-
-type CustomClientPluginOptions struct {
-	Enabled    bool
-	MaxRetries int
-}
-
-func (o *CustomClientPluginOptions) Root() string {
-	return "custom.plugins.custom"
-}
-
-func (o *CustomClientPluginOptions) PostLoad() error {
+func (o *CustomClientOptions) PostLoad() error {
 	return nil
 }
 

@@ -21,6 +21,13 @@ func Load[O IgniteOptions]() (o O, e error) {
 // unmarshals ignite options based a given key path.
 func LoadWithPath[O IgniteOptions](path string) (o O, e error) {
 	o = New[O]()
+	// adding default values
+	tags := GetTags(o)
+	for _, t := range tags {
+		config.Add(path+t.Path, t.Default, t.Description)
+	}
+	// load config
+	config.Load()
 	if e = config.UnmarshalWithPath(path, o); e != nil {
 		return
 	}

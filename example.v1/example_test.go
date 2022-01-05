@@ -27,7 +27,7 @@ func TestNew(t *testing.T) {
 					Host:  "localhost",
 					Port:  9999,
 					Count: 70 * 7,
-					Label: "Label",
+					Label: "LabelValue123",
 				}
 			},
 		},
@@ -60,10 +60,9 @@ func TestNewWithConfigPath(t *testing.T) {
 				os.Setenv("CUSTOM_HOST", "192.68.1.1")
 				os.Setenv("CUSTOM_PORT", "7777")
 				os.Setenv("CUSTOM_PLUGINS_CUSTOM_ENABLED", "true")
-				os.Setenv("CUSTOM_PLUGINS_CUSTOM_COUNT", "18")
-				os.Setenv("CUSTOM_PLUGINS_ANOTHER__CUSTOM_ENABLED", "true")
-				os.Setenv("CUSTOM_PLUGINS_ANOTHER__CUSTOM_LABEL", "ANOTHER_LABEL")
-				config.Load()
+				os.Setenv("CUSTOM_PLUGINS_CUSTOM_COUNTER__NUMBER", "18")
+				os.Setenv("CUSTOM_PLUGINS_ANOTHER_ENABLED", "true")
+				os.Setenv("CUSTOM_PLUGINS_ANOTHER_LABEL", "ANOTHER_LABEL")
 			},
 			want: func() *example.Any {
 				return &example.Any{
@@ -84,7 +83,7 @@ func TestNewWithConfigPath(t *testing.T) {
 			}
 			want := tt.want()
 			if !reflect.DeepEqual(got, want) {
-				t.Errorf("want\t%v\ngot \t%v", want, got)
+				t.Errorf("\nwant\t%v\ngot \t%v", want, got)
 			}
 
 		})
@@ -105,8 +104,8 @@ func TestNewWithOptions(t *testing.T) {
 				opts.Port = 8888
 				opts.Plugins.Custom.Enabled = false // custom plugin disabled
 				opts.Plugins.Custom.Count = 4444
-				opts.Plugins.AnotherCustom.Enabled = true
-				opts.Plugins.AnotherCustom.Label = "BLAH"
+				opts.Plugins.Another.Enabled = true
+				opts.Plugins.Another.Label = "BLAH"
 				return opts
 			},
 			want: func() *example.Any {
@@ -128,7 +127,7 @@ func TestNewWithOptions(t *testing.T) {
 			}
 			want := tt.want()
 			if !reflect.DeepEqual(got, want) {
-				t.Errorf("want\t%v\ngot \t%v", want, got)
+				t.Errorf("\nwant\t%v\ngot \t%v", want, got)
 			}
 
 		})
