@@ -20,8 +20,6 @@ type Options struct {
 	}
 }
 
-var optionsRoot = ""
-
 // root path for the options
 func (o *Options) Root() string {
 	return "ignite.example"
