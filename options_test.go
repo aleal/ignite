@@ -15,7 +15,7 @@ type CustomOptions struct {
 			Enabled bool     `default:"true" desc:"custom plugin options"`
 			Count   int      `config:"counterNumber" default:"777" desc:"custom plugin options"`
 			Servers []string `default:"localhost,10.0.1.1" desc:"custom plugin options"`
-			Ports   []int    `default:"234,78" desc:"custom plugin options"`
+			Ports   []int    `default:"9999,8888,8080" desc:"custom plugin options"`
 		}
 	} `config:"middlewares"`
 }
@@ -54,8 +54,9 @@ func TestLoadOptions(t *testing.T) {
 					"10.0.1.1",
 				}
 				co.Plugins.Custom.Ports = []int{
-					234,
-					78,
+					9999,
+					8888,
+					8080,
 				}
 				return co
 			},
@@ -91,6 +92,15 @@ func TestLoadOptionsWithPath(t *testing.T) {
 				co.Port = 7777
 				co.Plugins.Custom.Enabled = true
 				co.Plugins.Custom.Count = 777
+				co.Plugins.Custom.Servers = []string{
+					"localhost",
+					"10.0.1.1",
+				}
+				co.Plugins.Custom.Ports = []int{
+					9999,
+					8888,
+					8080,
+				}
 				return co
 			},
 			wantErr: func(e error) bool { return e == nil },
